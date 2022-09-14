@@ -18,7 +18,24 @@ void split(Node*& in, Node*& odds, Node*& evens)
 {
   /* Add code here */
 // WRITE YOUR CODE HERE
-
+//check if list is valid
+	if (!in) {
+        return;
+    }
+		//pushes to next value
+    //in->next = split(in->next, odds, evens);
+		//checks for odd and adds to list
+	if(in->value % 2 != 0){
+      odds = in;
+			split(in->next, odds->next, evens);
+    }
+		//checks for even and adds to list
+  else if (in->value % 2 == 0){
+      evens = in;
+			split(in->next, odds, evens->next);
+    }
+		//returns final list
+    return;
 }
 
 /* If you needed a helper function, write it here */
