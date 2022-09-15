@@ -27,6 +27,57 @@ size_t ULListStr::size() const
 // WRITE YOUR CODE HERE
 /////////////////////////////////////////////////////////
 //START OF CODE
+
+void ULListStr::pop_back() {
+	//checks item for remaining element
+	if(tail_->last == 1){
+		//moves index and deletes previous
+		tail_= tail_->prev;
+		delete tail_->next;
+		tail_->next = NULL;
+	}
+	//checks list for element
+	else if(size_ == 1){
+		delete tail_;
+		tail_ = NULL;
+		head_ = NULL;
+	}
+	//checks if list is empty
+	else if(size_ == 0){
+		return;
+	}
+	//else is more than 1 element in item
+	else{
+		tail_->last--;
+	}
+	size_--;
+}
+void ULListStr::pop_front() {
+	//one element left in item
+	if(head_->last == 1){
+		//sets head and deletes previous index
+		head_= head_->next;
+		delete head_->prev;
+		head_->prev = NULL;
+	}
+	//one element left in list
+	else if(size_ == 1){
+		//deletes index and sets head/tail to null
+		delete head_;
+		head_ = NULL;
+		tail_ = NULL;
+	}
+	//empty list
+	else if(size_ == 0){
+		return;
+	}
+	//more than one element left in item
+	else{
+		//moves head to the next index
+		head_->first++;
+	}
+	size_--;
+}
 void ULListStr::push_back(const std::string& val) {
 	//purpose adds a new value to back of list
 	if(ARRSIZE == tail_->last){
@@ -48,30 +99,12 @@ void ULListStr::push_back(const std::string& val) {
 		list->val[0]=val;
 		list->last++;
 	}
+	//checks that tail is not filled
 	else if(tail_->last != ARRSIZE){
 		tail_->val[tail_->last] = val;
 		tail_->last++;
 	}
 	size_++;
-}
-void ULListStr::pop_back() {
-	if(tail_->last == 1){
-		tail_= tail_->prev;
-		delete tail_->next;
-		tail_->next = NULL;
-	}
-	else if(size_ == 1){
-		delete tail_;
-		tail_ = NULL;
-		head_ = NULL;
-	}
-	else if(size_ == 0){
-		return;
-	}
-	else{
-		tail_->last--;
-	}
-	size_--;
 }
 void ULListStr::push_front(const std::string& val) {
 	//conditional for max amount of elements in list
@@ -105,32 +138,6 @@ void ULListStr::push_front(const std::string& val) {
 		head_->first--;
 	}
 	size_++;
-}
-void ULListStr::pop_front() {
-	//one element left in item
-	if(head_->last == 1){
-		//sets head and deletes previous index
-		head_= head_->next;
-		delete head_->prev;
-		head_->prev = NULL;
-	}
-	//one element left in list
-	else if(size_ == 1){
-		//deletes index and sets head/tail to null
-		delete head_;
-		head_ = NULL;
-		tail_ = NULL;
-	}
-	//empty list
-	else if(size_ == 0){
-		return;
-	}
-	//more than one element left in item
-	else{
-		//moves head to the next index
-		head_->first++;
-	}
-	size_--;
 }
 std::string const & ULListStr::front() const{
 	return head_->val[head_->first];
